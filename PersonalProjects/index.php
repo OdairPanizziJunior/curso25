@@ -52,7 +52,7 @@
 
     <div class="lead text-center"> 
         <br>
-        <button class="btn btn-primary" name="button" onclick="window.location.reload();">Quero outra Foto!</button>
+        <button class="btn btn-primary" name="button" onclick="window.location.reload();">Quero outra Imagem!</button>
         <br>
         <br>
     </div>
