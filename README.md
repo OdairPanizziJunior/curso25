@@ -17,3 +17,6 @@
 
 ### Como Associar editores de texto ao Ubuntu
 * sudo update-alternatives --config editor
+
+- Abrir VScode na pasta /var/www/html
+  - file -> open folder
