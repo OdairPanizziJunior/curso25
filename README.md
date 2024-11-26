@@ -18,7 +18,9 @@
 ### Como Associar editores de texto ao Ubuntu
 * sudo update-alternatives --config editor
 
-git init
+* GIT INIT
+`é usado para inicializar um novo repositório do Git ou converter um projeto já existente em um repositório do Git`
+
 
 * `git add . ` -> adiciona o mudança
 * `git commit -m "instruções no Readme" `-> Exemplo de Commit
