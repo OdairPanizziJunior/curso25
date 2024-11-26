@@ -19,4 +19,4 @@
 * sudo update-alternatives --config editor
 
 - Abrir VScode na pasta /var/www/html
-  - file -> open folder
+  - file -> open folder.
