@@ -1,6 +1,6 @@
 # curso25
 
-### Como dar permissão para pastas Linux?
+## Como dar permissão para pastas Linux?
 
 *sudo chmod 777 -R .*
 
@@ -12,11 +12,13 @@
 |-R | Recursivo (tudo que estiver dentro dela)|
 |. |Pasta local|
 
-### Como Associar editores de texto ao Git
+## Como Associar editores de texto ao Git
 * git config --global core.editor "vim"
 
-### Como Associar editores de texto ao Ubuntu
+## Como Associar editores de texto ao Ubuntu
 * sudo update-alternatives --config editor
+
+## Comandos GIT
 
 * GIT INIT
 `é usado para inicializar um novo repositório do Git ou converter um projeto já existente em um repositório do Git`
@@ -27,7 +29,7 @@
 * `git push `-> manda as novas informações para o GiuHub
 * `` -> Criar uma Branch
 
-### Branch
+## Branch
 
 * HotFix -> Corrigir bug em produção
 
