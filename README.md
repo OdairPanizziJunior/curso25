@@ -33,7 +33,7 @@
 
 * HotFix -> Corrigir bug em produção
 
-`master/main`
-`dev/develop`
-`feature XYZ`
-`bugFix`
+`master/main` :alien:
+`dev/develop` :construction:
+`feature XYZ` :sparkles:
+`bugFix` :bug:
