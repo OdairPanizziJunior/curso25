@@ -27,7 +27,7 @@
 * `git add . ` -> adiciona o mudança
 * `git commit -m "instruções no Readme" ` -> Exemplo de Commit
 * `git push ` -> manda as novas informações para o GiuHub
-* `` -> Criar uma Branch
+* `git checkout -b dev` -> Criar uma Branch chamada DEV e entra nela
 
 ## Branch
 
