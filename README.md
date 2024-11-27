@@ -27,7 +27,6 @@
 * `git add . ` -> adiciona o mudança
 * `git commit -m "instruções no Readme" ` -> Exemplo de Commit
 * `git push ` -> manda as novas informações para o GiuHub
-* `` -> Criar uma Branch
 
 ## Branch
 
@@ -37,3 +36,5 @@
 `dev/develop` :construction:
 `feature XYZ` :sparkles:
 `bugFix` :bug:
+
+## Tema de casa
