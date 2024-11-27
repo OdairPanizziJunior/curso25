@@ -37,3 +37,5 @@
 `dev/develop` :construction:
 `feature XYZ` :sparkles:
 `bugFix` :bug:
+
+## Tema de casa
