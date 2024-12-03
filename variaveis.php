@@ -13,6 +13,8 @@ float $float = 2.5;
 double $double = 2.5468;
 string $char = 'a';
 
+//Obs: o PHP já entende o tipo de dado colocado, então não necessáriamente precisa declarar o tipo. 
+
 //tipos de dados estruturais
 $array = array();
 $array_short = [];
