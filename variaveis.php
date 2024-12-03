@@ -5,7 +5,7 @@ const CPF = '01234567890';
 const VEL_LUZ = '320k\s2'; 
 
 //tipos de dados primitivos do PHP.
-string $inteiro = 2;
+int $inteiro = 2;
 string $string = "Um texto qualquer";
 string $nomePessoa = "Odair"; //style guide Camel Case
 string $nome_pessoa = "Odair"; //style guide Snake Case
