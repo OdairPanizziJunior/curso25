@@ -41,5 +41,10 @@ class CanetaAzul { // nome do objeto
 $string = "<br/>Um texto qualquer";
 echo "Olá <b><i>Mundo!</i></b>";
 echo $string;
-echo "</br>CPF: " . CPF
+echo "</br>CPF: " . CPF;
+
+$x = 10 + 10;
+$soma = $x;
+echo "</br>Soma: " . $soma;
+
 ?>
