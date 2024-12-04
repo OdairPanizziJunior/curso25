@@ -37,4 +37,9 @@ class CanetaAzul { // nome do objeto
     }
 }
 
+
+$string = "<br/>Um texto qualquer";
+echo "Olá <b><i>Mundo!</i></b>";
+echo $string;
+echo "</br>CPF: " . CPF
 ?>
