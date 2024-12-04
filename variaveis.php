@@ -43,7 +43,9 @@ echo "Olá <b><i>Mundo!</i></b>";
 echo $string;
 echo "</br>CPF: " . CPF;
 
-$x = 10 + 10;
+$a = 10;
+$b = 5;
+$x = $a + $b;
 $soma = $x;
 echo "</br>Soma: " . $soma;
 
