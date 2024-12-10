@@ -1,6 +1,10 @@
-
+<html>
+    <head>
+       <tittle><h1>Tabuada PHP</h1></tittle>
+    </head>
+    <body>
     <div>
-        <form method="post" action=""> 
+        <forvm method="post" action=""> 
             <label for="numero">Digite um número: </label>
             <input type="number" name="numero" id="numero"></input>
             <button type="submit" name="gerar">Calcular</button>
