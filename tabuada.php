@@ -43,7 +43,7 @@
             echo "<br>1 x 10 = " . $numero * 10;
 
             $numero = 2;
-            echo "Tabuada Manual do número " . $numero . "<br>";
+            echo "<br><br>Tabuada Manual do número " . $numero . "<br>";
             echo "<br>2 x 1 = " .  $numero * 1;
             echo "<br>2 x 2 = " .  $numero * 2;
             echo "<br>2 x 3 = " .  $numero * 3;
@@ -56,7 +56,7 @@
             echo "<br>2 x 10 = " . $numero * 10;
         
             $numero = 3;
-            echo "Tabuada Manual do número " . $numero . "<br>";
+            echo "<br><br>Tabuada Manual do número " . $numero . "<br>";
             echo "<br>3 x 1 = " .  $numero * 1;
             echo "<br>3 x 2 = " .  $numero * 2;
             echo "<br>3 x 3 = " .  $numero * 3;
@@ -69,7 +69,7 @@
             echo "<br>3 x 10 = " . $numero * 10;
 
             $numero = 4;
-            echo "Tabuada Manual do número " . $numero . "<br>";
+            echo "<br><br>Tabuada Manual do número " . $numero . "<br>";
             echo "<br>4 x 1 = " .  $numero * 1;
             echo "<br>4 x 2 = " .  $numero * 2;
             echo "<br>4 x 3 = " .  $numero * 3;
@@ -82,7 +82,7 @@
             echo "<br>4 x 10 = " . $numero * 10;
 
             $numero = 5;
-            echo "Tabuada Manual do número " . $numero . "<br>";
+            echo "<br><br>Tabuada Manual do número " . $numero . "<br>";
             echo "<br>5 x 1 = " .  $numero * 1;
             echo "<br>5 x 2 = " .  $numero * 2;
             echo "<br>5 x 3 = " .  $numero * 3;
@@ -95,7 +95,7 @@
             echo "<br>5 x 10 = " . $numero * 10;
 
             $numero = 6;
-            echo "Tabuada Manual do número " . $numero . "<br>";
+            echo "<br><br>Tabuada Manual do número " . $numero . "<br>";
             echo "<br>6 x 1 = " .  $numero * 1;
             echo "<br>6 x 2 = " .  $numero * 2;
             echo "<br>6 x 3 = " .  $numero * 3;
