@@ -32,7 +32,7 @@
 
             $numero = 6;
             echo "Tabuada Manual do número " . $numero . "<br>";
-            echo "<br>6 x 1 = " .  $numero * 1;
+            echo "<br>6 x 1 = " .  ($numero * 1);
             echo "<br>6 x 2 = " .  $numero * 2;
             echo "<br>6 x 3 = " .  $numero * 3;
             echo "<br>6 x 4 = " .  $numero * 4;
