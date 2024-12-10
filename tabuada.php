@@ -4,7 +4,7 @@
     </head>
     <body>
     <div>
-        <forvm method="post" action=""> 
+        <form method="post" action=""> 
             <label for="numero">Digite um número: </label>
             <input type="number" name="numero" id="numero"></input>
             <button type="submit" name="gerar">Calcular</button>
