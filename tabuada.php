@@ -1,4 +1,4 @@
-<html>
+
     <head>
        <tittle><h1>Tabuada PHP</h1></tittle>
     </head>
@@ -64,4 +64,3 @@
             }
         </style>
     </body>
-</html>
