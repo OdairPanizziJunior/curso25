@@ -1,8 +1,4 @@
 
-    <head>
-       <tittle><h1>Tabuada PHP</h1></tittle>
-    </head>
-    <body>
     <div>
         <form method="post" action=""> 
             <label for="numero">Digite um número: </label>
@@ -64,3 +60,4 @@
             }
         </style>
     </body>
+</html>
