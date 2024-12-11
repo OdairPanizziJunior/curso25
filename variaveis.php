@@ -49,4 +49,7 @@ $x = $a + $b;
 $soma = $x;
 echo "</br>Soma: " . $soma;
 
+//$resultado = 10 / 10; 1 
+//$resultado = 10 % 10; 0 //resto da divisão $
 ?>
+
