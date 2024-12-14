@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultado - Checagem de Números Primos</title>
+    <title>Checagem de Números Primos</title>
+    <style>
+        div.form{
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Resultado da Checagem</h1>
-
-    <form action="" method="POST">
-        <label>Digite um número:</label>
-        <input type="number" name="number" required />
-        <input type="submit" value="Testar" />
-    </form>
+    <div class="form">    
+        <h1>Quer saber se o número é Primo?</h1>
+        <h2>Digite-o e clique em testar</h2>
+        <form action="" method="POST">
+            <input type="number" name="number" required />
+            <input type="submit" value="Testar" />
+        </form>
+    </div>
+    <br>
 <?php
 //Descobrir se o número é primo ou não.
 $numero = $_POST['number'];
