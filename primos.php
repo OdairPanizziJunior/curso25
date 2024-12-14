@@ -48,7 +48,7 @@ $divisores = 0;
     } else {
         echo "Portanto " .$numero . " não é primo!<br> Ele possui $divisores divisor(es) além de 1 e ele mesmo.";
     }
-    ?>
+?>
 
 </body>
 </html>
