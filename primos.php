@@ -83,7 +83,7 @@
                 } 
             }
             if ($divisores == 0) {
-                echo "É primo!";
+                echo "O número " .$numero . " é primo!";
             } else {
                 echo "Portanto " .$numero . " não é primo!<br> Ele possui $divisores divisor(es) além de 1 e ele mesmo.";
             }
