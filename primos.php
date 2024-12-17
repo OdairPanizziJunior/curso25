@@ -66,6 +66,10 @@
     <div class="form">
         <?php
         //Descobrir se o número é primo ou não.
+        // 3 maneiras do iterador I
+        // $i = $i + 1;
+        // $i += 1;
+        // $i++;
 
         $numero = $_POST['number'] ?? null;
 
