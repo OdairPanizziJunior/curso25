@@ -78,7 +78,7 @@
 
         for($i = 2; $i < $numero; $i++){
             if ($numero % $i == 0){ //$i é o divisor (dividindo sempre por 2)
-                echo $numero . " pode ser divido por $i.<br />"; //quais números dividiram $numero. 
+                echo "O número " . $numero . " pode ser divido por $i.<br />"; //quais números dividiram $numero. 
                 $divisores++;
                 } 
             }
