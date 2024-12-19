@@ -5,10 +5,21 @@
 // validar se o ano é bissexto
 // Dica IF else
 
-$data = '31/10/2025';
+$data = '29/02/22024';  
 
-$dia = substr($data, 0, 2);
-$mes = substr($data, 3, 2);
-$ano = substr($data, 6, 4);
+function validaFormatoData($data) {
+    return preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $data);
+}
 
-echo $mes;
+if (!validaFormatoData($data)) {
+    echo "Formato inválido, use o formato DD/MM/AAAA. <br>Você digitou: " . $data . ".<br>";
+    exit;
+}
+
+list($dia, $mes, $ano) = explode('/', $data);
+
+if (!checkdate((int)$mes, (int)$dia, (int)$ano)) {
+    echo "A data $data não é válida no calendário!<br>";
+    exit;
+}
+echo "Data: " . $data;
