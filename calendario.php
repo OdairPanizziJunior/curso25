@@ -33,10 +33,13 @@ echo "Data: " . $data;
 // validar se o ano é bissexto
 // Dica IF else
 
-$data = '10-02-2024';
+$data = '29/02/1993';
+
+//meses com 30 dias
+$meses30 = [4,6,9,11];
 
 //explode a variável $data em partes separadas por /
-$partes = explode('-', $data);
+$partes = explode('/', $data);
 
 //Validar se foi dividido em 3 partes separadas por /
 if(count($partes) != 3){
@@ -63,45 +66,34 @@ if(!is_numeric($ano) || strlen($ano) != 4){
     exit;
 }
 
-echo $data . " ok !";
+echo $data . " - Formato de data ok!<br>";
 
 //isso é para converter os dados em inteiro
 $dia = (int)$dia;
 $mes = (int)$mes;
 $ano = (int)$ano;
 
-if($dia < 1 )
-
-
-
-/*
-function validaFormatoData($data) {
-    return preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $data);
+if($dia < 1 || $dia > 31){
+    echo "Dia inexistente!<br>";
+    exit;
 }
-
-list($dia, $mes, $ano) = explode('/', $data);
-
-if (!checkdate((int)$mes, (int)$dia, (int)$ano)) {
-    echo "A data $data não é válida no calendário!<br>";
+if($mes < 1 || $mes > 12){
+    echo "Mês inexistente!<br>";
     exit;
 }
 
-if (!validaFormatoData($data)) {
-    echo "Formato inválido! Use o formato DD/MM/AAAA. <br>Você digitou:" . $data . ".<br>";
+//dentro da variável $mes, tem algum número do array $meses30?
+if(in_array($mes, $meses30) && $dia > 30){
+    echo "Esse mês não tem 31 dias";
     exit;
-} else{
-    if($dia < 1 || $dia > 31){
-        echo "O dia " . $dia . " não existe!<br>";
+}
+
+if ($mes == 2) {
+    $bissexto = ($ano % 4 == 0 && $ano % 100 != 0) || ($ano % 400 == 0);
+
+    if ($dia > 29 || ($dia == 29 && !$bissexto)) {
+        echo "Fevereiro em " . $ano . " não tem/teve " . $dia . " dias!";
+        exit;
     }
-    
-    if($mes < 1 || $mes > 12){
-        echo "O mês " . $mes . " não existe.<br>";
-    }
-    
-    if($ano < 1){
-        echo "O Ano " . $ano . " não existe.<br>";
-    }
-    echo "Data: " . $data;
-    
-}*/
+}
 
