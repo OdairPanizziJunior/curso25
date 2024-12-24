@@ -40,4 +40,7 @@
 
 ## Configuração WSL + Apache2 + MySql
 
-Baixe o arquivo `configuratudo.sh` e execute 
+* Baixe o arquivo `configuratudo.sh` e cole na raíz do seu Linux WSL.
+* Aplique a permissão de execução "chmod +x configuratudo.sh", e então executar ./
+
+-> Lembre-se de usar o usuário ROOT 
