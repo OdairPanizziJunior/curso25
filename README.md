@@ -38,4 +38,6 @@
 `feature XYZ` :sparkles:
 `bugFix` :bug:
 
-## Tema de casa
+## Configuração WSL + Apache2 + MySql
+
+Baixe o arquivo `configuratudo.sh` e execute 
