@@ -9,12 +9,22 @@
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
         }
+
+        h1{
+            text-align: center;
+        }
+
+        h1:hover{
+            color: blue;
+        }
         .container {
             text-align: center;
         }
+
         .area{
-            width: 100px;
+            width: 80px;
         }
+
         .validador{
             text-align: center;
         }
@@ -22,11 +32,13 @@
 </head>
 <body>
 
+    <h1>CALENDÁRIO</h1>
+
     <div class="container">
         <form action="" method="POST">
             <label for="">Data</label>
             <input class="area" type="text" name="data" placeholder="dd/mm/aaaa">
-            <button type="submit">Testar</button>
+            <button type="submit" title="Clique para validar a data">Testar</button>
         </form>
     </div>
     
@@ -54,9 +66,7 @@
                 echo '<br>Formato de data Inválido ou não digitado';
                 exit;
             }
-            ?>
- 
-        <?php
+      
         //colocando cada parte separada em um array
         $dia = $partes[0]; // essa é a primeira parte da explosão
         $mes = $partes[1]; // segunda
