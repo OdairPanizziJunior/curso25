@@ -84,11 +84,11 @@
         $ano = (int)$ano;
         
         if($dia < 1 || $dia > 31){
-            echo "Dia inexistente!<br>";
+            echo "Dia inexistente >> " . $dia;
             exit;
         }
         if($mes < 1 || $mes > 12){
-            echo "Mês inexistente!<br>";
+            echo "Mês inexistente >> " . $mes;
             exit;
         }
         
