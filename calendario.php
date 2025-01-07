@@ -86,7 +86,7 @@
             exit;
         }
         
-        echo "<br>" . $data . " - Formato de data ok!<br>";
+        echo "<br>" . $data . " - O formato da data está ok!<br>";
 
         //isso é para converter os dados em inteiro
         $dia = (int)$dia;
