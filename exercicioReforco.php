@@ -85,7 +85,66 @@ echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", 
 // ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
 
 
-
 // FIM ORDENAR
+
+/*
+$array = [10, 5, 2, 30, 85, 14];
+
+
+for ($i = 0; $i < count($array); $i++) {
+    for ($j = 0; $j < count($array) - $i - 1; $j++) {
+        if ($array[$j] > $array[$j + 1]) {
+            // Troca os elementos
+            $temp = $array[$j];
+            $array[$j] = $array[$j + 1];
+            $array[$j + 1] = $temp;
+        }
+    }
+}
+
+
+print_r($array);
+*/
+$array = [10, 5, 2, 30, 85, 14];
+
+if ($array[0] > $array[1]) {
+    $temp = $array[0];
+    $array[0] = $array[1];
+    $array[1] = $temp;
+}
+
+if ($array[1] > $array[2]) {
+    $temp = $array[1];
+    $array[1] = $array[2];
+    $array[2] = $temp;
+}
+
+if ($array[2] > $array[3]) {
+    $temp = $array[2];
+    $array[2] = $array[3];
+    $array[3] = $temp;
+}
+
+if ($array[3] > $array[4]) {
+    $temp = $array[3];
+    $array[3] = $array[4];
+    $array[4] = $temp;
+}
+
+if ($array[4] > $array[5]) {
+    $temp = $array[4];
+    $array[4] = $array[5];
+    $array[5] = $temp;
+}
+
+if ($array[0] > $array[1]) {
+    $temp = $array[0];
+    $array[0] = $array[1];
+    $array[1] = $temp;
+}
+
+print_r($array);
+
+
 
 ?>
