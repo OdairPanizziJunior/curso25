@@ -4,7 +4,7 @@
 // 3 - Encontrar os 10 primeiros números primos, a partir do 10.
 // 4 - Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
 
-$numero = 25;
+$numero = 50;
 
 echo "Você digitou o número: " . $numero;
 
@@ -57,5 +57,35 @@ echo "<br><br>Números Ímpares<br> " . implode(", " , $imparX);
 
 // NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10.
 
+echo "<br><br>Quais são os 10 primeiros números primos do 10?<br><br>";
+
+$inicio = 10; 
+$qtdPrimos = 10; 
+$primos = []; 
+
+for ($numeroPrimo = $inicio; count($primos) < $qtdPrimos; $numeroPrimo++) {
+    $divisores = 0; 
+
+    for ($i = 2; $i < $numeroPrimo; $i++) {
+        if ($numeroPrimo % $i == 0) { 
+            $divisores++;
+            break; 
+        }
+    }
+
+    if ($divisores == 0) {
+        $primos[] = $numeroPrimo; 
+    }
+}
+
+echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", ", $primos);
+
+// FIM NÚMEROS PRIMOS
+
+// ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
+
+
+
+// FIM ORDENAR
 
 ?>
