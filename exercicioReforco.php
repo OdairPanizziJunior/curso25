@@ -9,7 +9,7 @@
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
         }
-
+        
         h1{
             text-align: center;
         }
@@ -20,6 +20,11 @@
         h2{
             text-align:center;
             font-size: 17px;
+        }
+        h3{
+            text-align: left;
+            font-size: 15px;
+            margin-left: 10px;
         }
         .container {
             text-align: center;
@@ -45,9 +50,12 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
-        .validador{
+        .resultado{
             text-align: center;
+        }
+        .enunciado{
+            text-align: left; 
+            margin-left: 45px;
         }
     </style>
 </head>
@@ -61,154 +69,173 @@
             <button type="submit" title="Clique para testar">Testar</button>
         </form>
     </div>
+    
+        <?php
+        // 1 - Recriar o exercício da tabuada usando funções.
+        // 2 - Encontrar os 10 primeiros números pares e os 10 primeiros ímpares
+        // 3 - Encontrar os 10 primeiros números primos, a partir do 10.
+        // 4 - Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
+        $numero = $_POST['number'] ?? null;
+            
+            if ($numero == null){
+                exit;
+            }
+        ?>
+
+    <div class="resultado">
+        <?php
+            echo "Número digitado: " . $numero;
+        ?>
+    </div>
+    
+    <!-- TABUADA - 1: Recriar o exercício da tabuada usando funções. -->
+    <h3>1: Recriar o exercício da tabuada usando funções.</h3>
+    
+    <div class="enunciado">
+        <?php
+            echo "<br>Tabuada do número " . $numero . " até o 10. <br><br>";
+            function tabuada($numero){
+                for ($i = 0; $i <= 10; $i++) {
+                    $resultado = $numero * $i;
+                    echo "<li>$numero x $i = $resultado</li>";
+                }
+            }
+                tabuada($numero);
+            echo "<br>";
+        ?>
+    </div>
+    <!-- FIM TABUADA -->
+    
+    <!-- PAR OU ÍMPAR - 2: Encontrar os 10 primeiros números pares e os 10 primeiros ímpares -->
+    <h3>2: Encontrar os 10 primeiros números pares e os 10 primeiros ímpares</h3>
+    
+    <div class="enunciado">
+        <?php  
+            //echo "<br>Quais são os 10 primeiros números pares começando do zero?<br><br>";
+
+            for ($i = 0; $i < 20; $i++){
+                if($i % 2 == 0){
+                    $par[] = $i; 
+                }else{
+                    $impar[] = $i;
+                }
+            }
+            echo "Números pares<br> " . implode(", " , $par);
+            echo "<br>";
+            echo "<br>Números Impares<br> " . implode(", " , $impar);
+            echo "<br>";
+            echo "<br>";
+        ?>
+    </div>    
+    <!-- FIM PAR OU ÍMPAR -->
+        
+    <!-- BÔNUS PAR OU ÍMPAR -->
+    <h4 class="enunciado">Bônus!</h4>
+    
+    <div class="enunciado">
+        <?php
+            for ($i = $numero; $i < ($numero + 20); $i++){
+                if($i % 2 == 0){
+                    $parX[] = $i; 
+                }else{
+                    $imparX[] = $i;
+                }
+            }
+            echo "Desafio: os próximos 10 pares à partir do " . $numero . ", ou seja, de " .  $numero . " até " . $numero+20;
+            echo "<br><br>Números pares<br> " . implode(", " , $parX);
+            echo "<br><br>E os próximos 10 ímpares?";
+            echo "<br><br>Números Ímpares<br> " . implode(", " , $imparX);
+        ?>    
+    </div>
+    <!-- FIM BÔNUS PAR OU ÍMPAR -->
+    
+    <?php
+
+        // NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10.
+
+        echo "<br><br>Quais são os 10 primeiros números primos à partir do número 10?<br><br>";
+
+        $inicio = 10; 
+        $qtdPrimos = 10; 
+        $primos = []; 
+
+        for ($numeroPrimo = $inicio; count($primos) < $qtdPrimos; $numeroPrimo++) {
+            $divisores = 0; 
+            
+            for ($i = 2; $i < $numeroPrimo; $i++) {
+                if ($numeroPrimo % $i == 0) { 
+                    $divisores++;
+                    break; 
+                }
+            }
+            
+            if ($divisores == 0) {
+                $primos[] = $numeroPrimo; 
+            }
+        }
+
+        echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", ", $primos);
+
+        // FIM NÚMEROS PRIMOS
+
+        // ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
+
+
+        echo "<br><br>Ordenar o ". "$". "array=[10,5,2,30,85,14], mas sem usar as funções asort, usort e sort";
+        echo "<br><br>Array desordenado <br> [10] [5] [2] [30] [85] [14]";
+
+        $array = [10, 5, 2, 30, 85, 14];
+
+        if ($array[0] > $array[1]) {
+            $temp = $array[0];
+            $array[0] = $array[1];
+            $array[1] = $temp;
+        }
+
+        if ($array[1] > $array[2]) {
+            $temp = $array[1];
+            $array[1] = $array[2];
+            $array[2] = $temp;
+        }
+
+        if ($array[2] > $array[3]) {
+            $temp = $array[2];
+            $array[2] = $array[3];
+            $array[3] = $temp;
+        }
+
+        if ($array[3] > $array[4]) {
+            $temp = $array[3];
+            $array[3] = $array[4];
+            $array[4] = $temp;
+        }
+
+        if ($array[4] > $array[5]) {
+            $temp = $array[4];
+            $array[4] = $array[5];
+            $array[5] = $temp;
+        }
+
+        if ($array[0] > $array[1]) {
+            $temp = $array[0];
+            $array[0] = $array[1];
+            $array[1] = $temp;
+        }
+
+        if ($array[3] > $array[4]) {
+            $temp = $array[3];
+            $array[3] = $array[4];
+            $array[4] = $temp;
+        }
+
+
+        echo "<br><br>Array Ordenado<br>";
+        foreach($array as $resultado){
+            echo "[$resultado] ";
+        }
+
+        // FIM ORDENAR
+
+        ?>
 </body>
 </html>
-
-<?php
-// 1 - Recriar o exercício da tabuada usando funções.
-// 2 - Encontrar os 10 primeiros números pares e os 10 primeiros ímpares
-// 3 - Encontrar os 10 primeiros números primos, a partir do 10.
-// 4 - Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
-
-$numero = $_POST['number'] ?? null;
-
-if ($numero == null){
-    exit;
-}
-
-
-echo "Número digitado: " . $numero;
-
-// TABUADA - 1: Recriar o exercício da tabuada usando funções.
-echo "<br><br>Tabuada do número " . $numero . " até o 10. <br><br>";
-
-function tabuada($numero){
-    for ($i = 0; $i <= 10; $i++) {
-        $resultado = $numero * $i;
-        echo "<li>$numero x $i = $resultado</li>";
-    }
-}
-
-tabuada($numero);
-
-// FIM TABUADA
-
-// PAR OU ÍMPAR - 2: Encontrar os 10 primeiros números pares e os 10 primeiros ímpares
-echo "<br>Quais são os 10 primeiros números pares começando do zero?<br><br>";
-
-for ($i = 0; $i < 20; $i++){
-    if($i % 2 == 0){
-        $par[] = $i; 
-    }else{
-        $impar[] = $i;
-    }
-}
-
-echo "Números pares<br> " . implode(", " , $par);
-echo "<br><br>E os 10 primeiros números ímpares começando do zero?";
-echo "<br><br>Números Impares<br> " . implode(", " , $impar);
-
-// FIM PAR OU ÍMPAR
-
-// BÔNUS PAR OU ÍMPAR
-for ($i = $numero; $i < ($numero + 20); $i++){
-    if($i % 2 == 0){
-        $parX[] = $i; 
-    }else{
-        $imparX[] = $i;
-    }
-}
-
-echo "<br><br><br>Desafio: os próximos 10 pares à partir do " . $numero . ", ou seja, de " .  $numero . " até " . $numero+20;
-echo "<br><br>Números pares<br> " . implode(", " , $parX);
-echo "<br><br>E os próximos 10 ímpares?";
-echo "<br><br>Números Ímpares<br> " . implode(", " , $imparX);
-
-// FIM BÔNUS PAR OU ÍMPAR
-
-// NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10.
-
-echo "<br><br>Quais são os 10 primeiros números primos à partir do número 10?<br><br>";
-
-$inicio = 10; 
-$qtdPrimos = 10; 
-$primos = []; 
-
-for ($numeroPrimo = $inicio; count($primos) < $qtdPrimos; $numeroPrimo++) {
-    $divisores = 0; 
-
-    for ($i = 2; $i < $numeroPrimo; $i++) {
-        if ($numeroPrimo % $i == 0) { 
-            $divisores++;
-            break; 
-        }
-    }
-
-    if ($divisores == 0) {
-        $primos[] = $numeroPrimo; 
-    }
-}
-
-echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", ", $primos);
-
-// FIM NÚMEROS PRIMOS
-
-// ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
-
-
-echo "<br><br>Ordenar o ". "$". "array=[10,5,2,30,85,14], mas sem usar as funções asort, usort e sort";
-echo "<br><br>Array desordenado <br> [10] [5] [2] [30] [85] [14]";
-
-$array = [10, 5, 2, 30, 85, 14];
-
-if ($array[0] > $array[1]) {
-    $temp = $array[0];
-    $array[0] = $array[1];
-    $array[1] = $temp;
-}
-
-if ($array[1] > $array[2]) {
-    $temp = $array[1];
-    $array[1] = $array[2];
-    $array[2] = $temp;
-}
-
-if ($array[2] > $array[3]) {
-    $temp = $array[2];
-    $array[2] = $array[3];
-    $array[3] = $temp;
-}
-
-if ($array[3] > $array[4]) {
-    $temp = $array[3];
-    $array[3] = $array[4];
-    $array[4] = $temp;
-}
-
-if ($array[4] > $array[5]) {
-    $temp = $array[4];
-    $array[4] = $array[5];
-    $array[5] = $temp;
-}
-
-if ($array[0] > $array[1]) {
-    $temp = $array[0];
-    $array[0] = $array[1];
-    $array[1] = $temp;
-}
-
-if ($array[3] > $array[4]) {
-    $temp = $array[3];
-    $array[3] = $array[4];
-    $array[4] = $temp;
-}
-
-
-echo "<br><br>Array Ordenado<br>";
-foreach($array as $resultado){
-    echo "[$resultado] ";
-}
-
-// FIM ORDENAR
-
-?>
