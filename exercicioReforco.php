@@ -1,12 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de Reforço</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        h1:hover{
+            color: blue;
+        }
+        h2{
+            text-align:center;
+            font-size: 17px;
+        }
+        .container {
+            text-align: center;
+        }
+
+        input[type="number"] {
+            width: 10%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 5%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 17px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .validador{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercícios de Reforço</h1>
+    <h2>Começe digitando um número</h2>
+
+    <div class="container">
+        <form action="" method="POST">
+            <input class="area" type="number" name="number" placeholder="digite um número">
+            <button type="submit" title="Clique para testar">Testar</button>
+        </form>
+    </div>
+</body>
+</html>
+
 <?php
 // 1 - Recriar o exercício da tabuada usando funções.
 // 2 - Encontrar os 10 primeiros números pares e os 10 primeiros ímpares
 // 3 - Encontrar os 10 primeiros números primos, a partir do 10.
 // 4 - Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
 
-$numero = 50;
+$numero = $_POST['number'] ?? null;
 
-echo "Você digitou o número: " . $numero;
+if ($numero == null){
+    exit;
+}
+
+
+echo "Número digitado: " . $numero;
 
 // TABUADA - 1: Recriar o exercício da tabuada usando funções.
 echo "<br><br>Tabuada do número " . $numero . " até o 10. <br><br>";
@@ -57,7 +128,7 @@ echo "<br><br>Números Ímpares<br> " . implode(", " , $imparX);
 
 // NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10.
 
-echo "<br><br>Quais são os 10 primeiros números primos do 10?<br><br>";
+echo "<br><br>Quais são os 10 primeiros números primos à partir do número 10?<br><br>";
 
 $inicio = 10; 
 $qtdPrimos = 10; 
@@ -85,26 +156,9 @@ echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", 
 // ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
 
 
-// FIM ORDENAR
+echo "<br><br>Ordenar o ". "$". "array=[10,5,2,30,85,14], mas sem usar as funções asort, usort e sort";
+echo "<br><br>Array desordenado <br> [10] [5] [2] [30] [85] [14]";
 
-/*
-$array = [10, 5, 2, 30, 85, 14];
-
-
-for ($i = 0; $i < count($array); $i++) {
-    for ($j = 0; $j < count($array) - $i - 1; $j++) {
-        if ($array[$j] > $array[$j + 1]) {
-            // Troca os elementos
-            $temp = $array[$j];
-            $array[$j] = $array[$j + 1];
-            $array[$j + 1] = $temp;
-        }
-    }
-}
-
-
-print_r($array);
-*/
 $array = [10, 5, 2, 30, 85, 14];
 
 if ($array[0] > $array[1]) {
@@ -143,8 +197,18 @@ if ($array[0] > $array[1]) {
     $array[1] = $temp;
 }
 
-print_r($array);
+if ($array[3] > $array[4]) {
+    $temp = $array[3];
+    $array[3] = $array[4];
+    $array[4] = $temp;
+}
 
 
+echo "<br><br>Array Ordenado<br>";
+foreach($array as $resultado){
+    echo "[$resultado] ";
+}
+
+// FIM ORDENAR
 
 ?>
