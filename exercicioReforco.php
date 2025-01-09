@@ -93,7 +93,7 @@
     
     <div class="enunciado">
         <?php
-            echo "<br>Tabuada do número " . $numero . " até o 10. <br><br>";
+            echo "Tabuada do número " . $numero . " até o 10. <br><br>";
             function tabuada($numero){
                 for ($i = 0; $i <= 10; $i++) {
                     $resultado = $numero * $i;
@@ -145,97 +145,98 @@
             echo "<br><br>Números pares<br> " . implode(", " , $parX);
             echo "<br><br>E os próximos 10 ímpares?";
             echo "<br><br>Números Ímpares<br> " . implode(", " , $imparX);
+            echo "<br>";
+            echo "<br>";
         ?>    
     </div>
     <!-- FIM BÔNUS PAR OU ÍMPAR -->
     
-    <?php
+    <!-- NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10 -->
+    <h3>3: Encontrar os 10 primeiros números primos, a partir do 10.</h3>
+    
+    <div class="enunciado">
+        <?php
+            $inicio = 10; 
+            $qtdPrimos = 10; 
+            $primos = []; 
 
-        // NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10.
-
-        echo "<br><br>Quais são os 10 primeiros números primos à partir do número 10?<br><br>";
-
-        $inicio = 10; 
-        $qtdPrimos = 10; 
-        $primos = []; 
-
-        for ($numeroPrimo = $inicio; count($primos) < $qtdPrimos; $numeroPrimo++) {
-            $divisores = 0; 
-            
-            for ($i = 2; $i < $numeroPrimo; $i++) {
-                if ($numeroPrimo % $i == 0) { 
-                    $divisores++;
-                    break; 
+            for ($numeroPrimo = $inicio; count($primos) < $qtdPrimos; $numeroPrimo++) {
+                $divisores = 0; 
+                for ($i = 2; $i < $numeroPrimo; $i++) {
+                    if ($numeroPrimo % $i == 0) { 
+                        $divisores++;
+                        break; 
+                    }
                 }
+                    if ($divisores == 0) {
+                        $primos[] = $numeroPrimo; 
+                    }
+                }
+            echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", ", $primos);
+            echo "<br>";
+            echo "<br>";
+        ?>
+    </div>
+    <!-- FIM NÚMEROS PRIMOS -->
+    
+    <!-- NÚMEROS PRIMOS - 3: Encontrar os 10 primeiros números primos, a partir do 10 -->
+    <h3>4: Ordenar em ordem crescente o $array=[10, 5, 2, 30, 85, 14]. Obs: não usar funções nativas "asort", "usort" e "sort".</h3>
+    
+    <div class="enunciado">
+        <?php 
+            echo "Array desordenado <br> [10] [5] [2] [30] [85] [14]";
+
+            $array = [10, 5, 2, 30, 85, 14];
+
+            if ($array[0] > $array[1]) {
+                $temp = $array[0];
+                $array[0] = $array[1];
+                $array[1] = $temp;
             }
-            
-            if ($divisores == 0) {
-                $primos[] = $numeroPrimo; 
+
+            if ($array[1] > $array[2]) {
+                $temp = $array[1];
+                $array[1] = $array[2];
+                $array[2] = $temp;
             }
-        }
 
-        echo "Os 10 primeiros números primos a partdir de $inicio são: " . implode(", ", $primos);
+            if ($array[2] > $array[3]) {
+                $temp = $array[2];
+                $array[2] = $array[3];
+                $array[3] = $temp;
+            }
 
-        // FIM NÚMEROS PRIMOS
+            if ($array[3] > $array[4]) {
+                $temp = $array[3];
+                $array[3] = $array[4];
+                $array[4] = $temp;
+            }
 
-        // ORDENAR  - 4: Ordenar em ordem crescente o array [10, 5, 2, 30, 85, 14] (não usar funções nativas "asort", "usort" e "sort")
+            if ($array[4] > $array[5]) {
+                $temp = $array[4];
+                $array[4] = $array[5];
+                $array[5] = $temp;
+            }
 
+            if ($array[0] > $array[1]) {
+                $temp = $array[0];
+                $array[0] = $array[1];
+                $array[1] = $temp;
+            }
 
-        echo "<br><br>Ordenar o ". "$". "array=[10,5,2,30,85,14], mas sem usar as funções asort, usort e sort";
-        echo "<br><br>Array desordenado <br> [10] [5] [2] [30] [85] [14]";
+            if ($array[3] > $array[4]) {
+                $temp = $array[3];
+                $array[3] = $array[4];
+                $array[4] = $temp;
+            }
 
-        $array = [10, 5, 2, 30, 85, 14];
-
-        if ($array[0] > $array[1]) {
-            $temp = $array[0];
-            $array[0] = $array[1];
-            $array[1] = $temp;
-        }
-
-        if ($array[1] > $array[2]) {
-            $temp = $array[1];
-            $array[1] = $array[2];
-            $array[2] = $temp;
-        }
-
-        if ($array[2] > $array[3]) {
-            $temp = $array[2];
-            $array[2] = $array[3];
-            $array[3] = $temp;
-        }
-
-        if ($array[3] > $array[4]) {
-            $temp = $array[3];
-            $array[3] = $array[4];
-            $array[4] = $temp;
-        }
-
-        if ($array[4] > $array[5]) {
-            $temp = $array[4];
-            $array[4] = $array[5];
-            $array[5] = $temp;
-        }
-
-        if ($array[0] > $array[1]) {
-            $temp = $array[0];
-            $array[0] = $array[1];
-            $array[1] = $temp;
-        }
-
-        if ($array[3] > $array[4]) {
-            $temp = $array[3];
-            $array[3] = $array[4];
-            $array[4] = $temp;
-        }
-
-
-        echo "<br><br>Array Ordenado<br>";
-        foreach($array as $resultado){
-            echo "[$resultado] ";
-        }
-
-        // FIM ORDENAR
+            echo "<br><br>Array Ordenado<br>";
+            foreach($array as $resultado){
+                echo "[$resultado] ";
+            }
 
         ?>
+    <!-- FIM ORDENAR --> 
+    <br><br><br>
 </body>
 </html>
