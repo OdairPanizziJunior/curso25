@@ -36,7 +36,7 @@
             margin: 0;
         }
         input[type="number"] {
-            width: 15%; 
+            width: 10%; 
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ced4da;
