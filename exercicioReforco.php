@@ -42,9 +42,9 @@
             border: 1px solid #ced4da;
             border-radius: 5px;
             font-size: 1rem;
-            -webkit-appearance: none; /* Remove aparência padrão no WebKit */
-            -moz-appearance: textfield; /* Remove aparência padrão no Firefox */
-            appearance: none; /* Compatibilidade com navegadores modernos */
+            -webkit-appearance: none; 
+            -moz-appearance: textfield; 
+            appearance: none; 
         }
         button {
             width: 5%;
