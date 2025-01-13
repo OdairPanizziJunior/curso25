@@ -30,15 +30,22 @@
             text-align: center;
         }
 
+        input[type="number"]::-webkit-inner-spin-button, 
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
         input[type="number"] {
-            width: 10%;
+            width: 15%; 
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ced4da;
             border-radius: 5px;
             font-size: 1rem;
+            -webkit-appearance: none; /* Remove aparência padrão no WebKit */
+            -moz-appearance: textfield; /* Remove aparência padrão no Firefox */
+            appearance: none; /* Compatibilidade com navegadores modernos */
         }
-
         button {
             width: 5%;
             padding: 10px;
