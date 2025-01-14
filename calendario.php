@@ -49,7 +49,7 @@
         // validar se o ano é bissexto
         // Dica IF else
 
-        $data = $_POST['data'] ?? null;
+        $data = $_POST['data'] ?? null; 
 
         //meses com 30 dias
         $meses30 = [4,6,9,11];
