@@ -120,6 +120,9 @@
         <?php  
             //echo "<br>Quais são os 10 primeiros números pares começando do zero?<br><br>";
 
+            $par = [];
+            $impar = [];
+
             for ($i = 0; $i < 20; $i++){
                 if($i % 2 == 0){
                     $par[] = $i; 
