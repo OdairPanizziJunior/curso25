@@ -194,57 +194,35 @@
     
     <div class="enunciado">
         <?php 
-            echo "Array desordenado <br> [10] [5] [2] [30] [85] [14]";
+             echo "Array desordenado <br> [10] [5] [2] [30] [85] [14]";
 
-            $array = [10, 5, 2, 30, 85, 14];
-
-            if ($array[0] > $array[1]) {
-                $temp = $array[0];
-                $array[0] = $array[1];
-                $array[1] = $temp;
-            }
-
-            if ($array[1] > $array[2]) {
-                $temp = $array[1];
-                $array[1] = $array[2];
-                $array[2] = $temp;
-            }
-
-            if ($array[2] > $array[3]) {
-                $temp = $array[2];
-                $array[2] = $array[3];
-                $array[3] = $temp;
-            }
-
-            if ($array[3] > $array[4]) {
-                $temp = $array[3];
-                $array[3] = $array[4];
-                $array[4] = $temp;
-            }
-
-            if ($array[4] > $array[5]) {
-                $temp = $array[4];
-                $array[4] = $array[5];
-                $array[5] = $temp;
-            }
-
-            if ($array[0] > $array[1]) {
-                $temp = $array[0];
-                $array[0] = $array[1];
-                $array[1] = $temp;
-            }
-
-            if ($array[3] > $array[4]) {
-                $temp = $array[3];
-                $array[3] = $array[4];
-                $array[4] = $temp;
-            }
-
-            echo "<br><br>Array Ordenado<br>";
-            foreach($array as $resultado){
-                echo "[$resultado] ";
-            }
-
+             $array = [10, 5, 2, 30, 85, 14];
+             //         0, 1, 2,  3,  4,  5
+ 
+             $tam = count($array) -1; // 6 - 1 = 5
+ 
+             for ($i = 0; $i < $tam/2; $i++ ) {       
+                 for ($j = $tam+1/2; $j > 0; $j--) {
+                     $anterior = $j -1;
+ 
+                     if ($array[$anterior] > $array[$j]) {
+                         $temp = $array[$anterior];
+                         $array[$anterior] = $array[$j];
+                         $array[$j] = $temp;
+                     }
+                 }
+ 
+                 if ($array[$i] < $array[$j]) {
+                     $temp = $array[$i];
+                     $array[$i] = $array[$j];
+                     $array[$j] = $temp;
+                 }
+             }
+ 
+             echo "<br><br>Array Ordenado<br>";
+             foreach($array as $resultado){
+                 echo "[$resultado] ";
+             }
         ?>
     <!-- FIM ORDENAR --> 
     <br><br><br>
