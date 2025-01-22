@@ -6,47 +6,70 @@ class Calculadora{
     public $operador = '';
     public $resultado = 0;
 
-    public function somar($valor1, $valor2){
+    public function __construct($valor1, $valor2){
+        $this->set($valor1, $valor2);
+    }
+
+    public function set($valor1, $valor2){
         $this->valor1 = $valor1;
         $this->valor2 = $valor2;
+    }
+
+    public function reset(){
+        $this->valor1 = 0;
+        $this->valor2 = 0;
+        $this->operador = '';
+        $this->resultado = 0;
+    }
+
+    public function somar(){
         $this->operador = ' + ';
         $this->resultado = $this->valor1 + $this->valor2;
         return $this->__toString();
     }
 
-    public function subtrair($valor1, $valor2){
-        $this->valor1 = $valor1;
-        $this->valor2 = $valor2;
+    public function subtrair(){
         $this->operador = ' - ';
         $this->resultado = $this->valor1 - $this->valor2;
         return $this->__toString();
     }
 
-    public function multiplicar($valor1, $valor2){
-        $this->valor1 = $valor1;
-        $this->valor2 = $valor2;
+    public function multiplicar(){
         $this->operador = ' * ';
         $this->resultado = $this->valor1 * $this->valor2;
         return $this->__toString();
     }
 
-    public function dividir($valor1, $valor2){
-        $this->valor1 = $valor1;
-        $this->valor2 = $valor2;
+    public function dividir(){
+        if (empty($this->valor1) || empty($this->valor2)){
+            return 'Não é possível dividir por zero!';
+        }
         $this->operador = ' / ';
         $this->resultado = $this->valor1 / $this->valor2;
         return $this->__toString();
     }
 
     public function __toString(){
-        
+        if (empty($this->valor1) || empty($this->valor2)){
+            return 'O resultado é :' .  $this->resultado . '.<br>';
+        }
+
         return 'O resultado de ' . $this->valor1 . $this->operador . $this->valor2 . ' é ' . $this->resultado .'.<br>';
 
     }
 }
+
+$valor1 = 0; 
+$valor2 = 10;
+
 // Para somar
-$calculadora = new Calculadora();
-echo $calculadora->somar(10,10);
-echo $calculadora->subtrair(10,10);
-echo $calculadora->multiplicar(10,10);
-echo $calculadora->dividir(10,10);
+$calculadora = new Calculadora($valor1, $valor2);
+echo $calculadora->somar();
+echo $calculadora->set(20,20);
+echo $calculadora->subtrair();
+echo $calculadora->multiplicar();
+
+echo $calculadora->set($valor1,$valor2);
+echo $calculadora->somar();
+$calculadora->reset();
+echo $calculadora->somar();
