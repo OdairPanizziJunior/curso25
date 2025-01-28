@@ -15,7 +15,17 @@ class ContaBancaria{
 }
 
 
-    public function sacar(){}
+    /*Sacar*/
+    public function sacar($valor) {
+    if ($valor > $this->saldo) {
+        return "Saldo insuficiente para o saque de R$ $valor.";
+    }
+        $this->saldo -= $valor;
+        $this->historico[] = "Saque de R$ $valor.";
+        return "Você sacou R$ $valor.";
+    }  
+
+
     public function depositar(){}
     public function pix(){}
     public function verSaldo(){}
