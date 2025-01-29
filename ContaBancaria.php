@@ -67,12 +67,12 @@ echo "<br>";
 $resultado = $conta->pix(100,"João");
 echo $resultado . "\n";
 echo "<br>";
-$resultado = $conta->depositar(1000, "Gilson");
+$resultado = $conta->depositar(1000, "Gilson") . "<br>";
 echo $resultado . "\n";
 echo "<br>";
 echo $conta->verSaldo() . "\n";
 echo "<br>";
-echo "<br>" . $conta->extrato() . "\n";
+echo "<br>" . $conta->extrato();
 /*
 // Tentando sacar um valor maior que o saldo
 $resultado = $conta->sacar(800);
