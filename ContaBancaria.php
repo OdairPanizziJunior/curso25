@@ -63,8 +63,10 @@ $conta = new ContaBancaria("Odair Panizzi", 1000);
 
 $resultado = $conta->sacar(300);
 echo $resultado . "\n";
+echo "<br>";
 $resultado = $conta->pix(100,"João");
 echo $resultado . "\n";
+echo "<br>";
 $resultado = $conta->depositar(1000);
 echo $conta->verSaldo() . "\n";
 echo "<br>" . $conta->extrato() . "\n";
