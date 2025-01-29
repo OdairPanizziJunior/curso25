@@ -26,11 +26,11 @@ class ContaBancaria{
     }  
 
     /* Depositar dinheiro*/
-    public function depositar($valor){
+    public function depositar($valor, $destinatario){
         $saldo = 0;
         $this->saldo =  + $valor;
-        $this->historico[] = "Depósito de R$ " . $valor . ".";
-        return "Você depositou R$ " . $valor . ".";
+        $this->historico[] = "Depósito de R$ " . $valor . " para " . $destinatario;
+        return "Você depositou R$ " . $valor . " para " . $destinatario . ".";
     }
 
     /* PIX */
@@ -67,8 +67,11 @@ echo "<br>";
 $resultado = $conta->pix(100,"João");
 echo $resultado . "\n";
 echo "<br>";
-$resultado = $conta->depositar(1000);
+$resultado = $conta->depositar(1000, "Gilson");
+echo $resultado . "\n";
+echo "<br>";
 echo $conta->verSaldo() . "\n";
+echo "<br>";
 echo "<br>" . $conta->extrato() . "\n";
 /*
 // Tentando sacar um valor maior que o saldo
