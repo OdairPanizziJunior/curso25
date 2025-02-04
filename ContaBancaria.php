@@ -1,5 +1,7 @@
 <?php
 
+require_once "./GerenciadorDeArquivo.php";
+
 class ContaBancaria{
 
     public $titular = '';
@@ -88,4 +90,17 @@ echo $conta->extrato() . "\n";
 
 */
 
+//$caminhoArquivo = "C://users//aluno//documents//";
+$nomeArquivo = "banco_do_brasil.txt";
+
+
+$arquivoTxt = new GerenciadorDeArquivo($nomeArquivo);
+$conta = [
+    "id" => 10,
+    "nome" => "Joao",
+    "saldo" => 100,
+];
+
+$arquivoTxt->escrever($conta);
+echo $arquivoTxt->ler();
 
