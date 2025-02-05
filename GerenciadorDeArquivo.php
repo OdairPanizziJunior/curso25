@@ -19,6 +19,7 @@ class GerenciadorDeArquivo {
         return file_exists($this->caminhoArquivo);
     }
 
+    // GET | POST | PUT | DELETE (CRUD)
     private function criarArquivo() {
         file_put_contents($this->caminhoArquivo, "");
         return;
@@ -51,7 +52,7 @@ class GerenciadorDeArquivo {
             throw new Exception("Não foi possivel ler os dados do arquivo.");
         }
 
-        return $dados;
+        return json_decode($dados, true) ?? [];
     }
 
 }
