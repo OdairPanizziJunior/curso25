@@ -99,18 +99,15 @@ class ContaBancaria {
             if ($conta['id'] === $contaOrigem) {
                     $conta['saldo'] -= $valor;
                     $this->arquivoTxt->escrever($dados);
-             
             }
 
             if ($conta['id'] === $contaDestino) {
                 $conta['saldo'] += $valor;
                 $this->arquivoTxt->escrever($dados);
-             
             }
-            
         }
-            return false;
-        }
+        return false;
+    }
     
 
     public function extrato($idConta) {
@@ -121,7 +118,6 @@ class ContaBancaria {
                 return $conta['saldo'];
             }
         }
-        
         return null; 
     }
 }
