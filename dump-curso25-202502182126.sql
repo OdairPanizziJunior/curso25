@@ -18,6 +18,15 @@
 --
 -- Table structure for table `conta_bancaria`
 --
+DROP DATABASE IF EXISTS `curso25`;
+
+CREATE DATABASE IF NOT EXISTS `curso25`;
+
+USE 'curso25';
+
+/*CREATE USER 'odair'@localhost IDENTIFIED BY '3003'
+
+GRANT ALL PRIVILEGES ON *.* TO 'odair'@localhost IDENTIFIED BY '3003'*/
 
 DROP TABLE IF EXISTS `conta_bancaria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -25,7 +34,7 @@ DROP TABLE IF EXISTS `conta_bancaria`;
 CREATE TABLE `conta_bancaria` (
   `id` tinyint(4) NOT NULL AUTO_INCREMENT,
   `nome_titular` varchar(255) NOT NULL,
-  `saldo` decimal(10,0) NOT NULL DEFAULT 0,
+  `saldo` decimal(10,2) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
