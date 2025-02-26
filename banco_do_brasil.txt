@@ -2,12 +2,12 @@
     {
         "id": 10,
         "nome": "Joao",
-        "saldo": 600
+        "saldo": 0
     },
     {
         "id": 11,
         "nome": "Rafael",
-        "saldo": 500
+        "saldo": 900
     },
     {
         "id": 12,
