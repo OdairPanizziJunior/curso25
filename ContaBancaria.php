@@ -126,11 +126,8 @@ class ContaBancaria {
     }
 
     public function extrato($idConta) {
-
         $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta';";
-
         $dados = $this->execQuery($sql);
-
         $this->processarDados($dados);
     }
 }
@@ -146,11 +143,6 @@ echo $conta->extrato($id);
 
 exit;
 
-
-$id = $_REQUEST["id"] ?? 0;
-$saldoMin = $_REQUEST["saldoMin"] ?? 0;
-$saldoMax = $_REQUEST["saldoMax"] ?? 0;
-$nomeTitular = $_REQUEST["nomeTitular"] ?? "";
 
 // WHERE 1=1 Facilita o uso de filtros adicionais ou consulta geral.
 // $sql = "SELECT * FROM conta_bancaria";
