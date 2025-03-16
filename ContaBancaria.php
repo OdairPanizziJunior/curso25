@@ -2,37 +2,64 @@
 
 require_once "./GerenciadorDeArquivo.php";
 
-require_once "./Conexao.php";
+require_once "./Database.php";
 
 class ContaBancaria {
     public string $titular = "";
     public string $destinatario = "";
     public float $saldo = 0;
 
-    private GerenciadorDeArquivo $arquivoTxt;
+    private $bancoDeDados;
     
-    public function __construct(GerenciadorDeArquivo $arquivoTxt)
+    public function __construct($bancoDeDados)
     {
-        $this->arquivoTxt = $arquivoTxt;
+        $this->bancoDeDados = $bancoDeDados;
+    }
+
+    private function execQuery($sql, $msg = "Não foi possivel obter os dados.") {
+        $sql = "SELECT * FROM conta_bancaria;";
+
+        $dados = $this->bancoDeDados->executar($sql);
+
+        if (empty($dados )) {
+            echo $msg;
+            exit;
+        }
+        
+        return $dados;
+    }
+
+    private function processarDados($dados) {
+        foreach ($dados as $idx => $linha) {
+            echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";   
+            echo "<br>";
+        }
     }
     
     public function listarContas()
     {
-        $dados = $this->arquivoTxt->ler();
+        $sql = "SELECT * FROM conta_bancaria;";
+
+        $dados = $this->execQuery($sql);
+
+        $this->processarDados($dados);
+
+
+        // $dados = $this->bancoDeDados->ler();
         
-        foreach ($dados as $idx => $conta) {
+        // foreach ($dados as $idx => $conta) {
 
-            $numConta = $conta['id'];
-            $nome = $conta['nome'];
-            $saldo = $conta['saldo'];
+        //     $numConta = $conta['id'];
+        //     $nome = $conta['nome'];
+        //     $saldo = $conta['saldo'];
 
-            echo "N° Conta: {$numConta} <br> Nome: {$nome} <br> Saldo: {$saldo}<br><br>";
-        }
+        //     echo "N° Conta: {$numConta} <br> Nome: {$nome} <br> Saldo: {$saldo}<br><br>";
+        // }
     }
 
     private function gerarIdConta() {
         $idsConta = [];
-        $dados = $this->arquivoTxt->ler();
+        $dados = $this->bancoDeDados->ler();
 
         foreach($dados as $idx => $conta) {
             $idsConta[] = $conta['id'];
@@ -47,7 +74,7 @@ class ContaBancaria {
     public function criarConta(string $nome, float $saldoInicial = 0.0)
     {
         $idConta = $this->gerarIdConta();
-        $dados = $this->arquivoTxt->ler();
+        $dados = $this->bancoDeDados->ler();
 
         $novaConta = [
             'id' => $idConta,
@@ -56,16 +83,16 @@ class ContaBancaria {
         ];
 
         $dados[] = $novaConta;
-        $this->arquivoTxt->escrever($dados);
+        $this->bancoDeDados->escrever($dados);
     }
 
     public function sacar($idConta, $valor) {
-        $dados = $this->arquivoTxt->ler();
+        $dados = $this->bancoDeDados->ler();
         foreach ($dados as &$conta) {
             if ($conta['id'] === $idConta) {
                 if ($conta['saldo'] >= $valor) {
                     $conta['saldo'] -= $valor;
-                    $this->arquivoTxt->escrever($dados);
+                    $this->bancoDeDados->escrever($dados);
                     return true;
                 }
                 return false;
@@ -76,13 +103,13 @@ class ContaBancaria {
 
     public function depositar($idConta, $valor) {
 
-        $dados = $this->arquivoTxt->ler();
+        $dados = $this->bancoDeDados->ler();
 
         foreach ($dados as $idx => &$conta) {
 
             if ($conta['id'] === $idConta) {
                 $conta['saldo'] += $valor;
-                $this->arquivoTxt->escrever($dados);
+                $this->bancoDeDados->escrever($dados);
                 return true;
             }
         }
@@ -91,7 +118,7 @@ class ContaBancaria {
 
     public function pix($contaOrigem, $contaDestino, $valor) {
 
-        $dados = $this->arquivoTxt->ler();
+        $dados = $this->bancoDeDados->ler();
 
         foreach($dados as $idx => &$conta){
             if ($this->extrato($contaOrigem) < $valor){
@@ -100,12 +127,12 @@ class ContaBancaria {
 
             if ($conta['id'] === $contaOrigem) {
                 $conta['saldo'] -= $valor;
-                $this->arquivoTxt->escrever($dados);
+                $this->bancoDeDados->escrever($dados);
             }
 
             if ($conta['id'] === $contaDestino) {
                 $conta['saldo'] += $valor;
-                $this->arquivoTxt->escrever($dados);
+                $this->bancoDeDados->escrever($dados);
             }
         }
 
@@ -113,75 +140,87 @@ class ContaBancaria {
     }
 
     public function extrato($idConta) {
-        $dados = $this->arquivoTxt->ler();
-        
-        foreach ($dados as $conta) {
-            if ($conta['id'] === $idConta) {
-                return $conta['saldo'];
-            }
-        }
-        
-        return null; 
+
+        $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta';";
+
+        $dados = $this->execQuery($sql);
+
+        $this->processarDados($dados);
     }
+
+    //     $dados = $this->bancoDeDados->ler();
+        
+    //     foreach ($dados as $conta) {
+    //         if ($conta['id'] === $idConta) {
+    //             return $conta['saldo'];
+    //         }
+    //     }
+        
+    //     return null; 
+    // }
 }
+
+$id = $_REQUEST["id"] ?? 0;
+$saldoMin = $_REQUEST["saldoMin"] ?? 0;
+$saldoMax = $_REQUEST["saldoMax"] ?? 0;
+$nomeTitular = $_REQUEST["nomeTitular"] ?? "";
+
+
+$conta = new ContaBancaria($bancoDeDados);
+echo $conta->extrato($id);
+
+exit;
+
 // $nomeArquivo = "banco_do_brasil.txt";
 
-// $arquivoTxt = new GerenciadorDeArquivo($nomeArquivo);
-// $conta = new ContaBancaria($arquivoTxt);
+// $bancoDeDados = new GerenciadorDeArquivo($nomeArquivo);
+// $conta = new ContaBancaria($bancoDeDados);
 
 // $conta->criarConta("Rafael", 150);
 // // $conta->depositar(10, 500);
 // // echo $conta->extrato(10);
 // echo $conta->listarContas();
 
-// print_r($conexao);
+// print_r($bancoDeDados);
 
-// $conexao->close();
+// $bancoDeDados->close();
 // CRUD: Create Read Update Delete
 // READ (ALL) -> READ ONLY (Filtros: id, email, cpf)
 
 
-// closure != (<>) clojure
-
-$fnAjustarWhere = function ($sql) {
-    $sqlAjustado = "";
-
-    // ... criar a logica
-
-    return $sqlAjustado;
-};
-
 // http://localhost/curso_php_25/ContaBancaria.php?id=5
 // http://localhost/curso_php_25/ContaBancaria.php?id=5&saldoMin=200&saldoMax=1000
+
+
 $id = $_REQUEST["id"] ?? 0;
 $saldoMin = $_REQUEST["saldoMin"] ?? 0;
 $saldoMax = $_REQUEST["saldoMax"] ?? 0;
 $nomeTitular = $_REQUEST["nomeTitular"] ?? "";
 
-$sql = "SELECT * FROM conta_bancaria";
+// WHERE 1=1 Facilita o uso de filtros adicionais ou consulta geral.
+// $sql = "SELECT * FROM conta_bancaria";
+$sql = "SELECT * FROM conta_bancaria WHERE 1=1";
 
 if ($id > 0) {
-    $sql .= " WHERE id = $id";
+    $sql .= " AND id = '$id'";
+    // $sql = "SELECT * FROM conta_bancaria WHERE 1=1 AND id = 10"; 
 }
 
-// SELECT * FROM conta_bancaria and saldo <= $saldo;
+if ($saldoMin > 0) {
+    $sql .= " AND saldo >= $saldoMin";
+}
 
-if ($saldo > 0) {
-    // SELECT * FROM conta_bancaria WHERE id = $id and saldo <= $saldo;
-    $sql .= $fnAjustarWhere($sql);
-    $sql .= " and saldo <= $saldo";
-    // $sql = $sql . " and saldo <= $saldo";
+if ($saldoMax > 0) {
+    $sql .= " AND saldo <= $saldoMax";
 }
 
 if (!empty($nomeTitular)) {
-    $sql .= " and nome_titular LIKE '%$nomeTitular%'";
+    $sql .= " AND nome_titular LIKE '%$nomeTitular%'";
 }
 
-// SELECT * FROM conta_bancaria WHERE id = $id and saldo <= $saldo
-// SELECT * FROM conta_bancaria WHERE id = $id and saldo <= $saldo;
 $sql .=";";
 
-$result = $conexao->query($sql);
+$result = $bancoDeDados->query($sql);
 
 $existeDados = $result->num_rows;
 
@@ -192,9 +231,6 @@ if (!$existeDados) {
 
 while ($registro = $result->fetch_assoc()) {
     $linha = (object) $registro;
-    //  $linha->id <= $linha["id"]
-
-    echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";
-    
+    echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";   
     echo "<br>";
 }
