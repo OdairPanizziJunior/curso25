@@ -1,7 +1,5 @@
 <?php
 
-require_once "./GerenciadorDeArquivo.php";
-
 require_once "./DataBase.php";
 
 class ContaBancaria {
@@ -43,18 +41,6 @@ class ContaBancaria {
         $dados = $this->execQuery($sql);
 
         $this->processarDados($dados);
-
-
-        // $dados = $this->bancoDeDados->ler();
-        
-        // foreach ($dados as $idx => $conta) {
-
-        //     $numConta = $conta['id'];
-        //     $nome = $conta['nome'];
-        //     $saldo = $conta['saldo'];
-
-        //     echo "N° Conta: {$numConta} <br> Nome: {$nome} <br> Saldo: {$saldo}<br><br>";
-        // }
     }
 
     private function gerarIdConta() {
@@ -147,17 +133,6 @@ class ContaBancaria {
 
         $this->processarDados($dados);
     }
-
-    //     $dados = $this->bancoDeDados->ler();
-        
-    //     foreach ($dados as $conta) {
-    //         if ($conta['id'] === $idConta) {
-    //             return $conta['saldo'];
-    //         }
-    //     }
-        
-    //     return null; 
-    // }
 }
 
 $id = $_REQUEST["id"] ?? 0;
@@ -170,26 +145,6 @@ $conta = new ContaBancaria($bancoDeDados);
 echo $conta->extrato($id);
 
 exit;
-
-// $nomeArquivo = "banco_do_brasil.txt";
-
-// $bancoDeDados = new GerenciadorDeArquivo($nomeArquivo);
-// $conta = new ContaBancaria($bancoDeDados);
-
-// $conta->criarConta("Rafael", 150);
-// // $conta->depositar(10, 500);
-// // echo $conta->extrato(10);
-// echo $conta->listarContas();
-
-// print_r($bancoDeDados);
-
-// $bancoDeDados->close();
-// CRUD: Create Read Update Delete
-// READ (ALL) -> READ ONLY (Filtros: id, email, cpf)
-
-
-// http://localhost/curso_php_25/ContaBancaria.php?id=5
-// http://localhost/curso_php_25/ContaBancaria.php?id=5&saldoMin=200&saldoMax=1000
 
 
 $id = $_REQUEST["id"] ?? 0;

@@ -6,22 +6,17 @@ class Database {
 
     private $conexao;
     
-    public function __construct($conexao)
-    {
+    public function __construct($conexao){
         $this->conexao= $conexao;
     }
     
-    public function fecharConexao()
-    {
+    public function fecharConexao(){
         $this->conexao->close();
     }
 
-    public function executar($sql)
-    {
+    public function executar($sql){
         $dados = [];
-
         $result = $this->conexao->query($sql);
-
         $existeDados = $result->num_rows;
 
         if (!$existeDados) {
