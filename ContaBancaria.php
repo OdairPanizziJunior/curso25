@@ -45,22 +45,24 @@ class ContaBancaria {
 
     private function gerarIdConta() {
         $idsConta = [];
-        $dados = $this->bancoDeDados->ler();
-
-        foreach($dados as $idx => $conta) {
-            $idsConta[] = $conta['id'];
+        $dados = $this->bancoDeDados->listarContas() ?? []; 
+    
+        foreach ($dados as $conta) {
+            $idsConta[] = $conta->id; // <-- Agora acessando como objeto
         }
-
-        $proximoId  = array_reverse($idsConta);
-
-        return $proximoId[0] + 1;
-
+    
+        if (empty($idsConta)) {
+            return 1; // Se não houver contas, começa pelo ID 1
+        }
+    
+        return max($idsConta) + 1; // Pega o maior ID e soma 1
     }
-
+    
+/*
     public function criarConta(string $nome, float $saldoInicial = 0.0)
     {
         $idConta = $this->gerarIdConta();
-        $dados = $this->bancoDeDados->ler();
+        $dados = $this->bancoDeDados->listarContas();
 
         $novaConta = [
             'id' => $idConta,
@@ -71,9 +73,19 @@ class ContaBancaria {
         $dados[] = $novaConta;
         $this->bancoDeDados->escrever($dados);
     }
+*/
+
+    public function criarConta(string $nome, float $saldoInicial = 0.0){
+        
+        $idConta = $this->gerarIdConta();
+        $sql = "INSERT INTO conta_bancaria (nome_titular, saldo) VALUES ('$nome', '$saldoInicial')";
+
+        $this->bancoDeDados->escrever($sql);
+    }
+
 
     public function sacar($idConta, $valor) {
-        $dados = $this->bancoDeDados->ler();
+        $dados = $this->bancoDeDados->listarContas();
         foreach ($dados as &$conta) {
             if ($conta['id'] === $idConta) {
                 if ($conta['saldo'] >= $valor) {
@@ -89,7 +101,7 @@ class ContaBancaria {
 
     public function depositar($idConta, $valor) {
 
-        $dados = $this->bancoDeDados->ler();
+        $dados = $this->bancoDeDados->listarContas();
 
         foreach ($dados as $idx => &$conta) {
 
@@ -104,7 +116,7 @@ class ContaBancaria {
 
     public function pix($contaOrigem, $contaDestino, $valor) {
 
-        $dados = $this->bancoDeDados->ler();
+        $dados = $this->bancoDeDados->listarContas();
 
         foreach($dados as $idx => &$conta){
             if ($this->extrato($contaOrigem) < $valor){
@@ -139,7 +151,18 @@ $nomeTitular = $_REQUEST["nomeTitular"] ?? "";
 
 
 $conta = new ContaBancaria($bancoDeDados);
-echo $conta->extrato($id);
+
+echo "<h3>Listando todas as contas:</h3>";
+$conta->listarContas();
+echo "<hr>";
+
+
+$nome = "Sanama Catioro"; 
+$valor = 500;
+echo "<h3>Criando nova conta para " . $nome . "</h3>";
+$conta->criarConta($nome, $valor);
+$conta->listarContas(); 
+
 
 exit;
 

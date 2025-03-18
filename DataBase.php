@@ -14,6 +14,15 @@ class Database {
         $this->conexao->close();
     }
 
+    public function listarContas() {
+        $sql = "SELECT * FROM conta_bancaria;";
+        return $this->executar($sql);
+    }  
+
+    public function escrever($sql){
+        return $this->conexao->query($sql); //essa é linha 23
+    }
+
     public function executar($sql){
         $dados = [];
         $result = $this->conexao->query($sql);
