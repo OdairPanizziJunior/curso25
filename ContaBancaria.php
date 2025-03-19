@@ -57,32 +57,12 @@ class ContaBancaria {
     
         return max($idsConta) + 1; // Pega o maior ID e soma 1
     }
-    
-/*
-    public function criarConta(string $nome, float $saldoInicial = 0.0)
-    {
-        $idConta = $this->gerarIdConta();
-        $dados = $this->bancoDeDados->listarContas();
-
-        $novaConta = [
-            'id' => $idConta,
-            'nome' => $nome,
-            'saldo' => $saldoInicial,
-        ];
-
-        $dados[] = $novaConta;
-        $this->bancoDeDados->escrever($dados);
-    }
-*/
 
     public function criarConta(string $nome, float $saldoInicial = 0.0){
         
-        $idConta = $this->gerarIdConta();
         $sql = "INSERT INTO conta_bancaria (nome_titular, saldo) VALUES ('$nome', '$saldoInicial')";
-
         $this->bancoDeDados->escrever($sql);
     }
-
 
     public function sacar($idConta, $valor) {
         $dados = $this->bancoDeDados->listarContas();
@@ -100,18 +80,8 @@ class ContaBancaria {
     }
 
     public function depositar($idConta, $valor) {
-
-        $dados = $this->bancoDeDados->listarContas();
-
-        foreach ($dados as $idx => &$conta) {
-
-            if ($conta['id'] === $idConta) {
-                $conta['saldo'] += $valor;
-                $this->bancoDeDados->escrever($dados);
-                return true;
-            }
-        }
-        return false;
+        $sql = "UPDATE conta_bancaria SET saldo = saldo + $valor WHERE id = $idConta";  // Corrigido para somar o valor ao saldo
+        return $this->bancoDeDados->escrever($sql);
     }
 
     public function pix($contaOrigem, $contaDestino, $valor) {
@@ -149,31 +119,33 @@ $saldoMin = $_REQUEST["saldoMin"] ?? 0;
 $saldoMax = $_REQUEST["saldoMax"] ?? 0;
 $nomeTitular = $_REQUEST["nomeTitular"] ?? "";
 
-
 $conta = new ContaBancaria($bancoDeDados);
 
 echo "<h3>Listando todas as contas:</h3>";
 $conta->listarContas();
 echo "<hr>";
 
-
-$nome = "Sanama Catioro"; 
-$valor = 500;
+/*
+$nome = "Zé da Manga"; 
+$valor = 800;
 echo "<h3>Criando nova conta para " . $nome . "</h3>";
 $conta->criarConta($nome, $valor);
+$conta->listarContas(); */
+
+$nome = "Zé da Manga"; 
+$valor = 800;
+echo "<h3>Depositado nova conta para " . $nome . "</h3>";
+$conta->depositar(5, 500); 
 $conta->listarContas(); 
-
-
 exit;
 
 
-// WHERE 1=1 Facilita o uso de filtros adicionais ou consulta geral.
-// $sql = "SELECT * FROM conta_bancaria";
+
+
 $sql = "SELECT * FROM conta_bancaria WHERE 1=1";
 
 if ($id > 0) {
     $sql .= " AND id = '$id'";
-    // $sql = "SELECT * FROM conta_bancaria WHERE 1=1 AND id = 10"; 
 }
 
 if ($saldoMin > 0) {
@@ -204,3 +176,6 @@ while ($registro = $result->fetch_assoc()) {
     echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";   
     echo "<br>";
 }
+
+
+

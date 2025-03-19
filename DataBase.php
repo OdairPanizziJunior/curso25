@@ -20,7 +20,7 @@ class Database {
     }  
 
     public function escrever($sql){
-        return $this->conexao->query($sql); //essa é linha 23
+        return $this->conexao->query($sql);
     }
 
     public function executar($sql){
