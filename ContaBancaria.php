@@ -1,6 +1,6 @@
 <?php
 
-require_once "./DataBase.php";
+require_once "./Database.php";
 
 class ContaBancaria {
     public string $titular = "";
@@ -14,168 +14,97 @@ class ContaBancaria {
         $this->bancoDeDados = $bancoDeDados;
     }
 
-    private function execQuery($sql, $msg = "Não foi possivel obter os dados.") {
-        $sql = "SELECT * FROM conta_bancaria;";
-
-        $dados = $this->bancoDeDados->executar($sql);
-
-        if (empty($dados )) {
-            echo $msg;
-            exit;
-        }
-        
-        return $dados;
-    }
-
-    private function processarDados($dados) {
+    private function processarDadosVisualizacao($dados)
+    {
         foreach ($dados as $idx => $linha) {
             echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";   
             echo "<br>";
         }
     }
-    
+
+    private function obterDadosConta($idConta, $msg = "") {
+        $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta'";
+
+        return $this->bancoDeDados->execQuery($sql, $msg);
+    }
+
+    public function criarConta(string $nome, float $valor = 0.0)
+    {
+        $msg = "Erro ao criar conta";
+        $sql = "INSERT INTO conta_bancaria (nome_titular, saldo) VALUES ('$nome', $valor)";
+        $idConta = $this->bancoDeDados->execQuery($sql, $msg);
+        $this->extrato($idConta);
+    }
+
+    public function sacar($idConta, $valor)
+    {
+        if (empty($idConta)) {
+            return "Erro, id da conta está em branco ou é inváldo!";
+        }
+
+        $msg = "Erro ao obter a conta. Conta inexistente. verifique o ID informado.";
+        $dadosConta = $this->obterDadosConta($idConta, $msg);
+
+        $saldo = $dadosConta[0]->saldo;
+        $valorTmp = $saldo - $valor;
+
+        $sql = "UPDATE conta_bancaria SET saldo=$valorTmp WHERE id='$idConta'";
+        $this->bancoDeDados->execQuery($sql);
+    }
+
+    public function depositar($idConta, $valor)
+    {
+        if (empty($idConta)) {
+            return "Erro, id da conta está em branco ou é inváldo!";
+        }
+
+        $msg = "Conta não encontrada, não foi possível efetuar o depósito. Verifique o ID informado.";
+        $dadosConta = $this->obterDadosConta($idConta, $msg);
+
+        $saldo = $dadosConta[0]->saldo;
+        $valorTmp = $saldo + $valor;
+
+        $msg = "Erro ao atualizar saldo.";
+        $sql = "UPDATE conta_bancaria SET saldo=$valorTmp WHERE id='$idConta'";
+        $this->bancoDeDados->execQuery($sql, $msg);
+    }
+
+    public function pix($contaOrigem, $contaDestino, $valor)
+    {
+        $this->depositar($contaDestino, $valor);     
+        $this->sacar($contaOrigem, $valor);
+    }
+
     public function listarContas()
     {
         $sql = "SELECT * FROM conta_bancaria;";
-
-        $dados = $this->execQuery($sql);
-
-        $this->processarDados($dados);
-    }
-
-    private function gerarIdConta() {
-        $idsConta = [];
-        $dados = $this->bancoDeDados->listarContas() ?? []; 
-    
-        foreach ($dados as $conta) {
-            $idsConta[] = $conta->id; // <-- Agora acessando como objeto
-        }
-    
-        if (empty($idsConta)) {
-            return 1; // Se não houver contas, começa pelo ID 1
-        }
-    
-        return max($idsConta) + 1; // Pega o maior ID e soma 1
-    }
-
-    public function criarConta(string $nome, float $saldoInicial = 0.0){
-        
-        $sql = "INSERT INTO conta_bancaria (nome_titular, saldo) VALUES ('$nome', '$saldoInicial')";
-        $this->bancoDeDados->escrever($sql);
-    }
-
-    public function sacar($idConta, $valor) {
-        $dados = $this->bancoDeDados->listarContas();
-        foreach ($dados as &$conta) {
-            if ($conta['id'] === $idConta) {
-                if ($conta['saldo'] >= $valor) {
-                    $conta['saldo'] -= $valor;
-                    $this->bancoDeDados->escrever($dados);
-                    return true;
-                }
-                return false;
-            }
-        }
-        return false;
-    }
-
-    public function depositar($idConta, $valor) {
-        $sql = "UPDATE conta_bancaria SET saldo = saldo + $valor WHERE id = $idConta";  // Corrigido para somar o valor ao saldo
-        return $this->bancoDeDados->escrever($sql);
-    }
-
-    public function pix($contaOrigem, $contaDestino, $valor) {
-
-        $dados = $this->bancoDeDados->listarContas();
-
-        foreach($dados as $idx => &$conta){
-            if ($this->extrato($contaOrigem) < $valor){
-                break;
-            }
-
-            if ($conta['id'] === $contaOrigem) {
-                $conta['saldo'] -= $valor;
-                $this->bancoDeDados->escrever($dados);
-            }
-
-            if ($conta['id'] === $contaDestino) {
-                $conta['saldo'] += $valor;
-                $this->bancoDeDados->escrever($dados);
-            }
-        }
-
-        return false;
+        $dados = $this->bancoDeDados->execQuery($sql);
+        $this->processarDadosVisualizacao($dados);
     }
 
     public function extrato($idConta) {
-        $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta';";
-        $dados = $this->execQuery($sql);
-        $this->processarDados($dados);
+
+        if (empty($idConta)) {
+            echo "Erro, id da conta está em branco ou é inváldo!";
+            exit;
+        }
+
+        $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta'";
+        $dados = $this->bancoDeDados->execQuery($sql);
+        $this->processarDadosVisualizacao($dados);
     }
 }
 
-$id = $_REQUEST["id"] ?? 0;
-$saldoMin = $_REQUEST["saldoMin"] ?? 0;
-$saldoMax = $_REQUEST["saldoMax"] ?? 0;
-$nomeTitular = $_REQUEST["nomeTitular"] ?? "";
-
-$conta = new ContaBancaria($bancoDeDados);
-
-echo "<h3>Listando todas as contas:</h3>";
-$conta->listarContas();
-echo "<hr>";
-
-/*
-$nome = "Zé da Manga"; 
-$valor = 800;
-echo "<h3>Criando nova conta para " . $nome . "</h3>";
-$conta->criarConta($nome, $valor);
-$conta->listarContas(); */
-
-$nome = "Zé da Manga"; 
-$valor = 800;
-echo "<h3>Depositado nova conta para " . $nome . "</h3>";
-$conta->depositar(5, 500); 
-$conta->listarContas(); 
-exit;
-
-
-
-
-$sql = "SELECT * FROM conta_bancaria WHERE 1=1";
-
-if ($id > 0) {
-    $sql .= " AND id = '$id'";
-}
-
-if ($saldoMin > 0) {
-    $sql .= " AND saldo >= $saldoMin";
-}
-
-if ($saldoMax > 0) {
-    $sql .= " AND saldo <= $saldoMax";
-}
-
-if (!empty($nomeTitular)) {
-    $sql .= " AND nome_titular LIKE '%$nomeTitular%'";
-}
-
-$sql .=";";
-
-$result = $bancoDeDados->query($sql);
-
-$existeDados = $result->num_rows;
-
-if (!$existeDados) {
-    echo "Não foi possivel obter os dados.";
+try {
+    $id = $_REQUEST["id"] ?? 0;
+    $saldoMin = $_REQUEST["saldoMin"] ?? 0;
+    $saldoMax = $_REQUEST["saldoMax"] ?? 0;
+    $nomeTitular = $_REQUEST["nomeTitular"] ?? "";
+    
+    $conta = new ContaBancaria($bancoDeDados);
+    echo $conta->pix(2, 1, 500);
+    echo $conta->listarContas();
+} catch (Exception $erro) {
+    echo $erro->getMessage();
     exit;
 }
-
-while ($registro = $result->fetch_assoc()) {
-    $linha = (object) $registro;
-    echo "Id: $linha->id Nome: $linha->nome_titular Saldo: $linha->saldo";   
-    echo "<br>";
-}
-
-
-

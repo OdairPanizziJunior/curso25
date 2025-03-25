@@ -6,27 +6,34 @@ class Database {
 
     private $conexao;
     
-    public function __construct($conexao){
+    public function __construct($conexao)
+    {
         $this->conexao= $conexao;
     }
     
-    public function fecharConexao(){
+    public function fecharConexao()
+    {
         $this->conexao->close();
     }
 
-    public function listarContas() {
-        $sql = "SELECT * FROM conta_bancaria;";
-        return $this->executar($sql);
-    }  
-
-    public function escrever($sql){
-        return $this->conexao->query($sql);
-    }
-
-    public function executar($sql){
+    private function executar($sql)
+    {
         $dados = [];
+
+        $isCreate = str_contains($sql, "INSERT");
+        $isUpdate = str_contains($sql, "UPDATE");
+
         $result = $this->conexao->query($sql);
-        $existeDados = $result->num_rows;
+        
+        if ($isCreate) {
+            return $this->conexao->insert_id;
+        }
+
+        if ($isUpdate) {
+            return $this->conexao->affected_rows;
+        }
+
+        $existeDados = $result->num_rows > 0;
 
         if (!$existeDados) {
             return $dados;
@@ -37,6 +44,18 @@ class Database {
             $dados[] = $linha;
         }
 
+        return $dados;
+    }
+
+    public function execQuery($sql, $msg = "Não foi possivel obter os dados.") {
+
+        $sql .=";";
+        $dados = $this->executar($sql);
+
+        if (empty($dados)) {
+            throw new Exception($msg);
+        }
+        
         return $dados;
     }
 }
