@@ -45,11 +45,18 @@ class ContaBancaria {
         $msg = "Erro ao obter a conta. Conta inexistente. verifique o ID informado.";
         $dadosConta = $this->obterDadosConta($idConta, $msg);
 
-        $saldo = $dadosConta[0]->saldo;
-        $valorTmp = $saldo - $valor;
+        $saldo = $dadosConta[0]->saldo ?? 0;
 
-        $sql = "UPDATE conta_bancaria SET saldo=$valorTmp WHERE id='$idConta'";
+        if ($saldo <= 0 || $valor > $saldo) {
+            throw new Exception("Saldo indísponivel.555555555");
+        }
+
+        $saldoAtual = $saldo - $valor;
+
+        $sql = "UPDATE conta_bancaria SET saldo=$saldoAtual WHERE id='$idConta'";
         $this->bancoDeDados->execQuery($sql);
+
+        return $saldoAtual;
     }
 
     public function depositar($idConta, $valor)
@@ -62,31 +69,35 @@ class ContaBancaria {
         $dadosConta = $this->obterDadosConta($idConta, $msg);
 
         $saldo = $dadosConta[0]->saldo;
-        $valorTmp = $saldo + $valor;
+        $saldoAtual = $saldo + $valor;
 
         $msg = "Erro ao atualizar saldo.";
-        $sql = "UPDATE conta_bancaria SET saldo=$valorTmp WHERE id='$idConta'";
+        $sql = "UPDATE conta_bancaria SET saldo=$saldoAtual WHERE id='$idConta'";
         $this->bancoDeDados->execQuery($sql, $msg);
+
+        return $saldoAtual;
     }
 
     public function pix($contaOrigem, $contaDestino, $valor)
     {
-        $this->depositar($contaDestino, $valor);     
         $this->sacar($contaOrigem, $valor);
+        $this->depositar($contaDestino, $valor);
     }
 
     public function listarContas()
     {
         $sql = "SELECT * FROM conta_bancaria;";
         $dados = $this->bancoDeDados->execQuery($sql);
+        
+        return $dados;
+
         $this->processarDadosVisualizacao($dados);
     }
 
     public function extrato($idConta) {
 
         if (empty($idConta)) {
-            echo "Erro, id da conta está em branco ou é inváldo!";
-            exit;
+            throw new Exception("Erro, id da conta está em branco ou é inváldo!");
         }
 
         $sql = "SELECT * FROM conta_bancaria WHERE id = '$idConta'";
@@ -96,15 +107,25 @@ class ContaBancaria {
 }
 
 try {
+    // Parametros URL
     $id = $_REQUEST["id"] ?? 0;
+    $idDestino = $_REQUEST["idDestino"] ?? 0;
+    $valor = $_REQUEST["valor"] ?? 0;
     $saldoMin = $_REQUEST["saldoMin"] ?? 0;
     $saldoMax = $_REQUEST["saldoMax"] ?? 0;
     $nomeTitular = $_REQUEST["nomeTitular"] ?? "";
     
     $conta = new ContaBancaria($bancoDeDados);
-    echo $conta->pix(2, 1, 500);
-    echo $conta->listarContas();
+    echo $conta->pix($id, $idDestino, $valor);
+    // echo $conta->listarContas();
+    setResponseApi($conta->listarContas());
 } catch (Exception $erro) {
     echo $erro->getMessage();
+    exit;
+}
+
+function setResponseApi($dados) {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($dados);
     exit;
 }
