@@ -2,8 +2,6 @@
 
 $conexao = mysqli_connect("localhost", "odair", "3003", "curso25");
 
-//Entra se deu certo
-
 if(!$conexao){
     echo "Erro de conexão!" . PHP_EOL;
     echo "Erro de conexão!" . mysqli_connect_errno() . PHP_EOL;
