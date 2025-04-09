@@ -29,9 +29,9 @@
                     valor
                 };
         
-                var strParams = jQuery.param(params); // id=1&idDestino=3&valor=500
+                var strParams = jQuery.param(params); 
         
-                const urlBase = "http://localhost/curso_php_25/ContaBancaria.php?" + strParams;
+                const urlBase = "http://localhost/curso25/ContaBancaria.php?" + strParams;
         
                 $.get(urlBase).then((contas) => {
 
